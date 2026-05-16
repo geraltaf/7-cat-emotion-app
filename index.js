@@ -25,6 +25,24 @@ function closeModal(){
     memeModal.style.display = 'none'
 }
 
+function getMatchingCatsArray(){     
+    if(document.querySelector('input[type="radio"]:checked')){
+        const selectedEmotion = document.querySelector('input[type="radio"]:checked').value
+        const isGif = gifsOnlyOption.checked
+        
+        const matchingCatsArray = catsData.filter(function(cat){
+            
+            if(isGif){
+                return cat.emotionTags.includes(selectedEmotion) && cat.isGif
+            }
+            else{
+                return cat.emotionTags.includes(selectedEmotion)
+            }            
+        })
+        return matchingCatsArray 
+    }  
+}
+
 function getEmotionsArray(cats){
     const emotionsArray = []
     for (let cat of cats){
@@ -41,7 +59,16 @@ function renderEmotionsRadios(cats){
     let radioItems = ``
     const emotions = getEmotionsArray(cats)
     for (let emotion of emotions){
-        radioItems += `<p>${emotion}</p>`
+        radioItems += `
+        <div class="radio">
+            <label for="${emotion}">${emotion}</label>
+            <input
+            type="radio"
+            id="${emotion}"
+            value="${emotion}"
+            name="emotions"
+            >
+        </div>`
     }
     emotionRadios.innerHTML = radioItems
 }
