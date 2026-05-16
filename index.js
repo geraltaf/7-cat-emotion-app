@@ -25,6 +25,18 @@ function closeModal(){
     memeModal.style.display = 'none'
 }
 
+function getSingleCatObject(){
+    const catsArray = getMatchingCatsArray()
+    
+    if(catsArray.length === 1){
+        return catsArray[0]
+    }
+    else{
+        const randomNumber = Math.floor(Math.random() * catsArray.length)
+        return catsArray[randomNumber]
+    }
+}
+
 function getMatchingCatsArray(){     
     if(document.querySelector('input[type="radio"]:checked')){
         const selectedEmotion = document.querySelector('input[type="radio"]:checked').value
